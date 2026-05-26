@@ -1,6 +1,8 @@
 package cadastro.animais.rest.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.UUID;
 
@@ -10,25 +12,37 @@ public class Animal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID animalID;
+    private UUID id;
 
+    @NotBlank(message = "O nome é obrigatório")
     private String nome;
 
+    @Min(value = 0, message = "A idade não pode ser negativa")
     private int idade;
 
+    @NotBlank(message = "A cor é obrigatória")
     private String cor;
 
+    @NotBlank(message = "A espécie é obrigatória")
     private String especie;
 
     public Animal() {
     }
 
-    public Animal(UUID animalID, String nome, int idade, String cor, String especie) {
-        this.animalID = animalID;
+    public Animal(UUID id, String nome, int idade, String cor, String especie) {
+        this.id = id;
         this.nome = nome;
         this.idade = idade;
         this.cor = cor;
         this.especie = especie;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -37,14 +51,6 @@ public class Animal {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public UUID getAnimalID() {
-        return animalID;
-    }
-
-    public void setAnimalID(UUID animalID) {
-        this.animalID = animalID;
     }
 
     public int getIdade() {
@@ -71,4 +77,3 @@ public class Animal {
         this.especie = especie;
     }
 }
-
